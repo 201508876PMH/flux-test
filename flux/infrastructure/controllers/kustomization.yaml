@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   - ingress-nginx.yaml
-  - load-balancer-metallb-yaml
+  - load-balancer-metallb.yaml
