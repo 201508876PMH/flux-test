@@ -4,14 +4,23 @@ kind: Namespace
 metadata:
   name: metallb
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: metallb
-  namespace: metallb
+  namespace: flux-system
 spec:
   interval: 15m
   url: https://metallb.github.io/metallb
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metallb-helm-chart-value-overrides
+  namespace: metallb
+data:
+  config-values/metallb-values.yaml: |-  
+    # <upstream values go here>
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
