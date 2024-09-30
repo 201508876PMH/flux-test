@@ -19,7 +19,7 @@ metadata:
   name: metallb-helm-chart-value-overrides
   namespace: metallb
 data:
-  config-values/metallb-values.yaml: |-  
+  values.yaml: |-  
     # <upstream values go here>
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -42,4 +42,4 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: metallb-helm-chart-value-overrides
-    valuesKey: config-values/metallb-values.yaml # This is the default, but best to be explicit for clarity
+    valuesKey: values.yaml # This is the default, but best to be explicit for clarity
