@@ -1,4 +1,4 @@
-name: test
+name: Validate Kubernetes configuration
 
 on:
   workflow_dispatch:
