@@ -1,21 +1,17 @@
-apiVersion: metallb.io/v1
+apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: metallb-pool
   namespace: metallb
 spec:
   addresses:
-  - 172.18.0.0/16
+  - 172.18.0.100-172.18.0.200
 ---
-apiVersion: metallb.io/v1
-kind: BGPAdvertisement
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
 metadata:
   name: metallb-advertisment
   namespace: metallb
 spec:
   ipAddressPools:
   - metallb-pool 
-  aggregationLength: 32
-  localPref: 100
-  communities:
-  - 65535:65282
