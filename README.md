@@ -1,0 +1,2 @@
+[![Validate Kubernetes configuration](https://github.com/201508876PMH/flux-test/actions/workflows/k8s_validate.yaml/badge.svg)](https://github.com/201508876PMH/flux-test/actions/workflows/k8s_validate.yaml)
+[![Kubernetes cluster CI and tests](https://github.com/201508876PMH/flux-test/actions/workflows/k8s_cluster_ci.yaml/badge.svg)](https://github.com/201508876PMH/flux-test/actions/workflows/k8s_cluster_ci.yaml)
