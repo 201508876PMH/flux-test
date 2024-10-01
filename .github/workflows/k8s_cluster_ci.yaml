@@ -1,4 +1,4 @@
-name: Kubernetes cluster CI and tests
+name: k8s cluster CI and tests
 
 on:
   workflow_dispatch:
