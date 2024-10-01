@@ -6,6 +6,8 @@ on:
   push:
     branches: [ '*' ]
     tags-ignore: [ '*' ]
+env:
+  BRANCH
 
 jobs:
   kubernetes:
@@ -24,11 +26,9 @@ jobs:
         id: get_branch
         run: |
           # Check if this is a pull request
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            # Use the PR base branch for flux (the branch the PR is merging into)
+          if github.event.pull_request.base.ref != 'master' # check the target branch if it's master
             echo "BRANCH=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
           else
-            # Use the branch name from a normal push event
             echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
 
@@ -54,7 +54,7 @@ jobs:
       - name: Verify helm reconciliation
         run: |
           kubectl -n podinfo wait helmrelease/podinfo --for=condition=ready --timeout=2m
-          
+
       - name: Debug failure
         if: failure()
         run: |
