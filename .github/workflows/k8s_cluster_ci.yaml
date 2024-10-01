@@ -39,7 +39,7 @@ jobs:
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${{ env.BRANCH }} \
+          --branch=peter/add-metallb \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
