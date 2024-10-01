@@ -2,6 +2,7 @@ name: Kubernetes cluster CI and tests
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
     branches: [ '*' ]
     tags-ignore: [ '*' ]
