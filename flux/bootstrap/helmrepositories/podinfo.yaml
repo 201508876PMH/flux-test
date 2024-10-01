@@ -5,7 +5,5 @@ metadata:
   name: podinfo
   namespace: flux-system
 spec:
-
-sdd
   interval: 15m
   url: https://stefanprodan.github.io/podinfo
