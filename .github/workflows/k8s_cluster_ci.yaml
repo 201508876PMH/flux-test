@@ -39,7 +39,7 @@ jobs:
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${{ env.BRANCH }} \
+          --branch=peter/add-metallb \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
@@ -54,9 +54,13 @@ jobs:
       - name: Verify helm reconciliation
         run: |
           kubectl -n podinfo wait helmrelease/podinfo --for=condition=ready --timeout=2m
+          kubectl -n metallb-system wait helmrelease/metallb --for=condition=ready --timeout=2m
+
       - name: Debug failure
         if: failure()
         run: |
+          kubectl get pods -A
+          kubectl get namespaces
           kubectl -n flux-system get all
           kubectl -n flux-system logs deploy/source-controller
           kubectl -n flux-system logs deploy/kustomize-controller
