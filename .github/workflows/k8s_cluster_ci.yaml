@@ -54,7 +54,7 @@ jobs:
       - name: Verify helm reconciliation
         run: |
           kubectl -n podinfo wait helmrelease/podinfo --for=condition=ready --timeout=2m
-          kubectl -n podinfo wait helmrelease/metallb --for=condition=ready --timeout=2m
+          kubectl -n metallb-system wait helmrelease/metallb --for=condition=ready --timeout=2m
 
       - name: Debug failure
         if: failure()
