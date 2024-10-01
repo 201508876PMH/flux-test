@@ -1,4 +1,4 @@
-name: Validate Kubernetes configuration
+name: k8s validate configuration
 
 on:
   workflow_dispatch:
