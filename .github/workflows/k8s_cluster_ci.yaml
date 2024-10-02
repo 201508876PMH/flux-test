@@ -23,17 +23,19 @@ jobs:
       - name: Install Flux in Kubernetes Kind
         run: flux install
 
-      - name: Print git repo info
+      - name: Get branch for flux
         run: |
-          echo "url: ${{ github.event.repository.html_url }}"
-          echo "branch: ${{ github.head_ref }}"
-          echo "username: ${GITHUB_ACTOR}"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH=${{ github.head_ref }}
+          else
+            BRANCH=${{ env.BRANCH }}
+          fi
 
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${{ github.head_ref }} \
+          --branch=$BRANCH \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
