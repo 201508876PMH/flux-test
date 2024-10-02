@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "url: ${{ github.event.repository.html_url }}"
           echo "branch: ${{ github.head_ref }}"
-          echo "username: "${GITHUB_ACTOR}"
+          echo "username: ${GITHUB_ACTOR}"
 
       - name: Setup cluster reconciliation
         run: |
