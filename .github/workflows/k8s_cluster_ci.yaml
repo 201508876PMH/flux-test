@@ -23,6 +23,12 @@ jobs:
       - name: Install Flux in Kubernetes Kind
         run: flux install
 
+      - name: Print git repo info
+        run: |
+          echo "url: ${{ github.event.repository.html_url }}"
+          echo "branch: ${{ github.head_ref }}"
+          echo "username: "${GITHUB_ACTOR}"
+
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
