@@ -23,7 +23,7 @@ jobs:
       - name: Install Flux in Kubernetes Kind
         run: flux install
 
-      - name: Print git repo info
+      - name: Get branch for flux
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BRANCH=${{ github.head_ref }}
