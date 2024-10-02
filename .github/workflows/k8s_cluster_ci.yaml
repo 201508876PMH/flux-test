@@ -20,26 +20,20 @@ jobs:
         with:
           cluster_name: flux
 
-      - name: Determine Branch
-        id: get_branch
-        run: |
-          # Check if this is a pull request
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            # Use the PR base branch for flux (the branch the PR is merging into)
-            echo "BRANCH=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
-          else
-            # Use the branch name from a normal push event
-            echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          fi
-
       - name: Install Flux in Kubernetes Kind
         run: flux install
+
+      - name: Print git repo info
+        run: |
+          echo "url: ${{ github.event.repository.html_url }}"
+          echo "branch: ${{ github.head_ref }}"
+          echo "username: ${GITHUB_ACTOR}"
 
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=${{ env.BRANCH }} \
+          --branch=${{ github.head_ref }} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
@@ -50,10 +44,13 @@ jobs:
       - name: Verify cluster reconciliation
         run: |
           kubectl -n flux-system wait kustomization/flux-system --for=condition=ready --timeout=2m
+          kubectl -n flux-system wait kustomization/metallb--metallb-system --for=condition=ready --timeout=2m
           
       - name: Verify helm reconciliation
         run: |
           kubectl -n podinfo wait helmrelease/podinfo --for=condition=ready --timeout=2m
+          kubectl -n metallb-system wait helmrelease/metallb --for=condition=ready --timeout=2m
+          
       - name: Debug failure
         if: failure()
         run: |
