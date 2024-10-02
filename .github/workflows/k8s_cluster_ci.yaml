@@ -20,22 +20,14 @@ jobs:
         with:
           cluster_name: flux
 
-      - name: Determine Branch
-        run: |
-            if [ "${{ github.event_name }}" = "pull_request" ]; then
-              BRANCH=${{ github.head_ref }}
-            else
-              BRANCH=${{ env.BRANCH }}
-            fi
-
       - name: Install Flux in Kubernetes Kind
         run: flux install
 
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
-          --url=${{ github.event.repository.html_url }} \
-          --branch=$BRANCH \
+          --url=${{ github.event.repository }} \
+          --branch=${{ github.head_ref }} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
