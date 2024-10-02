@@ -1,8 +1,9 @@
-name: k8s cluster CI and tests (master)
+name: k8s cluster CI and tests (PR)
 
 on:
   workflow_dispatch:
   pull_request:
+    branches-ignore: [ 'master' ]  # Exclude the master branch
   push:
     branches-ignore: [ 'master' ]  # Exclude the master branch
     tags-ignore: [ '*' ]
