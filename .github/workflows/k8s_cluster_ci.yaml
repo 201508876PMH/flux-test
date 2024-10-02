@@ -26,7 +26,7 @@ jobs:
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
-          --url=${{ github.event.repository }} \
+          --url=${{ github.event.repository.html_url }} \
           --branch=${{ github.head_ref }} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
