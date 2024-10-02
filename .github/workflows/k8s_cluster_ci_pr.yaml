@@ -1,10 +1,11 @@
-name: k8s cluster CI and tests
+name: k8s cluster CI and tests (PR)
 
 on:
   workflow_dispatch:
   pull_request:
+    branches-ignore: [ 'master' ]  # Exclude the master branch
   push:
-    branches: [ '*' ]
+    branches-ignore: [ 'master' ]  # Exclude the master branch
     tags-ignore: [ '*' ]
 
 jobs:
@@ -23,19 +24,11 @@ jobs:
       - name: Install Flux in Kubernetes Kind
         run: flux install
 
-      - name: Get branch for flux
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BRANCH=${{ github.head_ref }}
-          else
-            BRANCH=${{ env.BRANCH }}
-          fi
-
       - name: Setup cluster reconciliation
         run: |
           flux create source git flux-system \
           --url=${{ github.event.repository.html_url }} \
-          --branch=$BRANCH \
+          --branch=${{ github.ref_name }} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GHT }} \
           --ignore-paths="clusters/**/flux-system/"
