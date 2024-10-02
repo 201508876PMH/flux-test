@@ -1,4 +1,4 @@
-name: k8s cluster CI and tests
+name: k8s cluster CI and tests (PR)
 
 on:
   workflow_dispatch:
