@@ -1,0 +1,14 @@
+apiVersion: k0s.k0sproject.io/v1beta1
+kind: ClusterConfig
+  metadata:
+name: k0s
+spec:
+  extensions:
+    helm:
+      repositories:
+      - name: metallb
+        url: https://metallb.github.io/metallb
+      charts:
+      - name: metallb
+        chartname: metallb/metallb
+        namespace: metallb
