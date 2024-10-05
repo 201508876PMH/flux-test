@@ -19,3 +19,5 @@ spec:
   - kind: ConfigMap
     name: metallb-helm-chart-value-overrides
     valuesKey: values.yaml # This is the default, but best to be explicit for clarity
+  values:
+    installCRDs: true  # Ensure CRDs are installed
