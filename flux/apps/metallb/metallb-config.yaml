@@ -5,5 +5,4 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  #"Subnet": "172.18.0.0/16",
   - 172.18.0.100-172.18.0.200
