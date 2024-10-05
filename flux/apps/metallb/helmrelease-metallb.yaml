@@ -13,3 +13,5 @@ spec:
         kind: HelmRepository
         name: metallb
         namespace: flux-system
+  values:
+      installCRDs: true  # Ensure CRDs are installed
