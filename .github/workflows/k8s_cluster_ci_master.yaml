@@ -32,7 +32,7 @@ jobs:
           --ignore-paths="clusters/**/flux-system/"
           flux create kustomization flux-system \
           --source=flux-system \
-          --path=./flux/bootstrap
+          --path=./flux/infrastructure
           
       - name: Verify cluster reconciliation
         run: |
