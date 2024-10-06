@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: kubernetes-dashboard-helm-chart-value-overrides
+  namespace: kubernetes-dashboard
+data:
+  values.yaml: |-
+    # Default values for kubernetes-dashboard.
