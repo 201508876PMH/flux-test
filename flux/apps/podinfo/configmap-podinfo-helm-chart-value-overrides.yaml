@@ -37,7 +37,7 @@ data:
     service:
       enabled: true
       annotations: {}
-      type: LoadBalancer
+      type: ClusterIP
       metricsPort: 9797
       httpPort: 9898
       externalPort: 9898
@@ -108,7 +108,7 @@ data:
     securityContext: {}
 
     ingress:
-      enabled: false
+      enabled: true
       className: ""
       annotations: {}
         # kubernetes.io/ingress.class: nginx
