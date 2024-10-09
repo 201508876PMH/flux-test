@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traefik
-  namespace: default
+  namespace: traefik
 spec:
   rules:
   - http:
@@ -17,14 +17,14 @@ spec:
             port:
               number: 8000  # Port exposed by the dashboard service
       
-      # Foo-service
+      # podinfo-service
       - pathType: Prefix
         path: /foo(/|$)(.*)
         backend:
           service:
-            name: foo-service
+            name: podinfo
             port:
-              number: 8080
+              number: 9898
       
       # Bar-service
       - pathType: Prefix
