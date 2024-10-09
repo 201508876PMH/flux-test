@@ -45,6 +45,10 @@ jobs:
           kubectl -n podinfo wait helmrelease/podinfo --for=condition=ready --timeout=2m
           kubectl -n kubernetes-dashboard wait helmrelease/kubernetes-dashboard --for=condition=ready --timeout=2m
           kubectl -n traefik wait helmrelease/traefik --for=condition=ready --timeout=2m
+      
+      - name: Show pods
+        run: |
+          kubectl get pods -A
 
       - name: Debug failure
         if: failure()
